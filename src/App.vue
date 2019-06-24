@@ -46,15 +46,12 @@
 <script>
     import { mapGetters } from 'vuex'
     import Rem from '@/assets/js/rem'
-    import Jquery from 'jquery'
     new Rem();
 
     export default {
         name: 'app',
         data() {
             return {
-                weatherUrl:'http://apis.juhe.cn/simpleWeather/query',
-                weatherData:{},
                 transitionName: 'slide-go',
                 nowUrl: '/'
             }
@@ -110,23 +107,6 @@
                 this.$router.openPage(path)
 
             }
-
-        },
-        mounted() {
-            var params = {
-                type: "get",
-                url: "this.weatherUrl",
-                data: {
-                    city:'北京',
-                    key:'6e9a87b7f80f0adec376b62b3365c7e3'
-                },
-                dataType:'JSONP',
-                success:function(data){
-                    this.weatherData = data
-
-                }
-            }
-           Jquery.ajax(params);
 
         }
     }

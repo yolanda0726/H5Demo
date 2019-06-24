@@ -23,40 +23,7 @@
 
 
     var mySwiper = null;
-    // export default{
-    //     props: {
-    //         list: {
-    //             type: Array,
-    //             default: function () {
-    //                 return []
-    //             }
-    //         },
-    //         config: {
-    //             type: Object,
-    //             default: function () {
-    //                 return {
-    //                     autoplay: 60000,
-    //                     observer: true,
-    //                     observeParents: true,
-    //                     autoplayDisableOnInteraction: false
-    //                 }
-    //             }
-    //         }
-    //     },
-    //
-    //     mounted() {
-    //         mySwiper = new Swiper (this.$refs.swiper, _.assign({
-    //             pagination: this.$refs.pagination
-    //         }, this.config))
-    //     },
-    //     watch: {
-    //         list(){
-    //             setTimeout(function () {
-    //                 mySwiper.update();
-    //             }, 10)
-    //         }
-    //     }
-    // }
+
 
     export default{
         props: {
@@ -65,33 +32,35 @@
                 default: function () {
                     return []
                 }
-            }
-        },
-        config: {
-            type: Object,
-            default: function () {
-                return {
-                    autoplay: 6000,
-                    observer: true,
-                    observeParents: true,
-                    autoplayDisableOnInteraction: false
+            },
+            config: {
+                type: Object,
+                default: function () {
+                    return {
+                        autoplay: 30000,
+                        observer: true,
+                        observeParents: true,
+                        autoplayDisableOnInteraction: false
+                    }
                 }
             }
         },
+        data() {
+            return {
 
+            }
+        },
         mounted() {
-            mySwiper =  new Swiper (this.$refs.swiper, _.assign({
+            mySwiper = new Swiper (this.$refs.swiper, _.assign({
                 pagination: this.$refs.pagination
             }, this.config))
-
         },
         watch: {
-            list() {
+            list(){
                 setTimeout(function () {
                     mySwiper.update();
-                },10)
+                }, 10)
             }
-
         }
     }
 
