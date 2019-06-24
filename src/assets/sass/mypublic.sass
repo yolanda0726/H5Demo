@@ -1,0 +1,332 @@
+@import "./util.sass"
+
+//公共部分封装
+html, body, div, h1, h2, h3, h4, h5, h6, p, img, ul, li, input, span, a, i
+  margin: 0
+  padding: 0
+
+html
+  font-family: "microsoft yahei", "HanHei SC", "PingHei", "PingFang SC", "STHeitiSC-Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif
+
+img
+  border: none
+  vertical-align: top
+  width: 100%
+
+a
+  text-decoration: none
+
+input, textarea, button
+  outline: none
+  -webkit-appearance: none
+// 移除源生控件样式
+
+textarea
+  resize: none
+  overflow: hidden
+
+li
+  list-style: none
+
+.clear
+  zoom: 1
+
+.clear:after
+  content: ""
+  display: block
+  clear: both
+
+.fl, .pull-left
+  float: left
+
+.fr, .pull-right
+  float: right
+
+.absolute
+  position: absolute
+
+.relative
+  position: relative
+
+.noscroll::-webkit-scrollbar
+  width: 0
+  height: 0
+
+.scroll-box
+  -webkit-overflow-scrolling: touch
+  overflow-y: auto
+
+.scroll-box-x
+  -webkit-overflow-scrolling: touch
+  overflow-x: auto
+
+
+*
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+  -webkit-tap-highlight-color: transparent
+
+
+//通用设置
+html, body
+  width: 100%
+  height: 100%
+  overflow: hidden
+
+html
+  font-size: -webkit-calc(10vw)
+  /* hack for internet is slow the rem is not load. */
+  font-size: calc(10vw)
+// vw视窗宽度的百分比（1vw 代表视窗的宽度为 1%）
+
+body
+  @include f14px
+  width: 10rem
+  margin: 0 auto
+  position: relative
+  background-color: #F5F5F5
+
+
+//*-------------------routerView部分动画---------------*/
+/* 路由动画 */
+.slide-go-enter-active, .slide-go-leave-active, .slide-back-enter-active, .slide-back-leave-active
+  @include ani01-transform
+
+
+.slide-go-leave
+  -webkit-transform: translate3d(0, 0, 0)
+  transform: translate3d(0, 0, 0)
+
+.slide-go-leave-to
+  -webkit-transform: translate3d(-100%, 0, 0)
+  transform: translate3d(-100%, 0, 0)
+
+
+.slide-go-enter
+  -webkit-transform: translate3d(100%, 0, 0)
+  transform: translate3d(100%, 0, 0)
+
+.slide-go-enter-to
+  -webkit-transform: translate3d(0%, 0, 0)
+  transform: translate3d(0%, 0, 0)
+
+.slide-back-leave
+  -webkit-transform: translate3d(0, 0, 0)
+  transform: translate3d(0, 0, 0)
+
+.slide-back-leave-to
+  -webkit-transform: translate3d(100%, 0, 0)
+  transform: translate3d(100%, 0, 0)
+
+
+.slide-back-enter
+  -webkit-transform: translate3d(-100%, 0, 0)
+  transform: translate3d(-100%, 0, 0)
+
+.slide-back-enter-to
+  -webkit-transform: translate3d(0%, 0, 0)
+  transform: translate3d(0%, 0, 0)
+//*-------------------routerView部分动画end----------------*/
+
+//*-------------------loadingbar部分----------------*/
+.loading-bar
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 400
+  width: 100%
+  height: 2px
+
+.loading-bar
+  span.press
+//进度条
+  display: block
+  float: left
+  width: 0%
+  height: 100%
+  background-color: #FFCB30
+  transition: all 0.4s cubic-bezier(.55, 0, .1, 1)
+
+
+//加载的四个状态
+.loading-bar.loading span.press
+  width: 10%
+  opacity: 1
+
+.loading-bar.end span.press
+  width: 100%
+  opacity: 1
+
+.loading-bar.hide span.press
+  opacity: 0
+  width: 100%
+
+.loading-bar.normal span.press
+  opacity: 0
+  width: 0
+
+
+//*-------------------loadingbar部分end----------------*/
+
+//*-------------------router-view部分----------------*/
+.app-init
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+//*-------------------router-view部分end----------------*/
+
+
+//*-------------------footer部分----------------*/
+.footer
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  height: $footerHeight
+  z-index: 400
+  background-color: #ffffff
+  @include box-sizing
+  -webkit-box-shadow: 0 3px 14px 2px rgba(0, 0, 0, .12)
+  box-shadow: 0 3px 14px 2px rgba(0, 0, 0, .12)
+  transform: translateY(0)
+  //切换页面时tab隐藏动画
+  -webkit-transition: transform .4s cubic-bezier(.55, 0, .1, 1)
+  transition: transform .4s cubic-bezier(.55, 0, .1, 1)
+
+.footer.leave
+  transform: translateY(100%)
+//tab显示动效
+
+.footer-item
+  width: 25%
+  height: 100%
+  text-align: center
+  float: left
+  font-size: 0.32rem
+  color: #999
+  padding-bottom: 0.1rem
+  padding-top: 0.12rem
+
+  .iconfont
+    font-size: 0.6rem
+
+.footer-item.active
+  color: #ff6700
+
+.shop-car
+  position: relative
+
+  .num
+    position: absolute
+    width: 0.5rem
+    height: 0.5rem
+    line-height: 0.5rem
+    text-align: center
+    color: white
+    background-color: #f95c52
+    border-radius: 50%
+    right: 0.38rem
+    top: 0.05rem
+
+    .full
+      font-size: 0.28rem
+
+
+.footer-hack:after
+  content: ''
+  display: block
+  width: 100%
+  padding-bottom: 1.44rem
+
+/*------------------footer部分end------------------*/
+
+
+/*------------------首页content部分------------------*/
+.public-header
+  width: 100%
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2)
+  z-index: 100
+  position: relative
+
+  .search-box
+    padding: getIphonese(16px) 0
+    padding-bottom: getIphonese(16px)
+
+    .logo
+      color: #ff6b00
+      font-size: 0.7rem
+      padding: 0 getIphonese(23px)
+      line-height: getIphonese(54px)
+
+    .myself-center
+      width: getIphonese(89px)
+      text-align: center
+      line-height: getIphonese(54px)
+      color: #727272
+      font-size: 0.6rem
+
+    .input-box
+      position: absolute
+      left: getIphonese(89px)
+      right: getIphonese(89px)
+      height: getIphonese(58px)
+      top: getIphonese(15px)
+
+      .input-controller
+        width: 100%
+        height: 100%
+        @include box-sizing
+        @include f14px
+        border: 1px solid #e5e5e5
+        border-radius: 4px
+        padding-left: getIphonese(54px)
+        line-height: getIphonese(54px)
+
+      .input-controller::placeholder
+        color: rgba(0, 0, 0, 0.3)
+
+
+      .icon-sousuo-copy
+        color: #9c9c9c
+        left: getIphonese(17px)
+        top: 0
+        line-height: getIphonese(56px)
+        opacity: 0.6
+        font-size: 0.44rem
+
+  .menu-box
+    .wrap-box
+      width: auto
+      white-space: nowrap
+      //nowrap：只保留一个空白，文本不会换行，会在在同一行上继续，直到遇到br标签为止。
+      .item
+        display: inline-block
+        padding: 0 getIphonese(19px)
+        padding-bottom: 1px
+        color: #7c7c7c
+
+        span
+          display: inline-block
+          line-height: getIphonese(70px)
+          position: relative
+
+      .item.active
+        color: #ed5b00
+
+      .item.active span:after
+        content: ''
+        display: inline-block
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        height: 2px
+        background-color: #ed5b00
+
+
+
+
+
+/*------------------首页content部分end------------------*/
+

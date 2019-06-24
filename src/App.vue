@@ -1,28 +1,139 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div>
+        <div class="loading-bar"  :class="nowStatus">
+            <span class="press"></span>
+        </div>
+
+
+        <div class="app-init">
+            <transition :name="transitionName">
+                <router-view/>
+            </transition>
+        </div>
+
+
+<!--        footer  tab切换部分-->
+        <footer class="footer  clear" :class="{'leave':isLeave}">
+            <div class="footer-item" :class="{'active':isActive('home')}" @click="open('/home')">
+                <p>
+                    <span class="iconfont icon-shouye"></span>
+                </p>
+                <span>首页</span>
+            </div>
+            <div class="footer-item" :class="{'active':isActive('classification')}" @click="open('/classification')">
+                <p>
+                    <span class="iconfont icon-fenlei"></span>
+                </p>
+                <span>分类</span>
+            </div>
+            <div class="footer-item shop-car" :class="{'active':isActive('cart')}" @click="open('/cart')">
+                <p>
+                    <span class="iconfont icon-gouwuche"></span>
+                </p>
+                <span>购物车</span>
+                <span class="num" v-show="true" :class="{'full':false}">0</span>
+            </div>
+            <div class="footer-item" :class="{'active':isActive('mine')}" @click="open('/mine')">
+                <p>
+                    <span class="iconfont icon-smile"></span>
+                </p>
+                <span>我的</span>
+            </div>
+        </footer>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import { mapGetters } from 'vuex'
+    import Rem from '@/assets/js/rem'
+    import Jquery from 'jquery'
+    new Rem();
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'app',
+        data() {
+            return {
+                weatherUrl:'http://apis.juhe.cn/simpleWeather/query',
+                weatherData:{},
+                transitionName: 'slide-go',
+                nowUrl: '/'
+            }
+        },
+        watch: {
+            //路由动画
+            '$route' (to, from) {
+                if (from.query.time) {
+                    if (to.query.time > from.query.time) {
+                        this.transitionName = 'slide-go'
+                    } else {
+                        this.transitionName = 'slide-back'
+                    }
+                } else {
+                    this.transitionName = 'slide-go'
+                }
+                this.nowUrl = to.fullPath
+            }
+        },
+        computed: {
+            isLeave(){
+                var leave = true;
+                var tabPath = ['home','classification','cart','mine']
+                for (let i = 0; i < tabPath.length; i++) {
+                    if (this.isActive(tabPath[i])) {
+                        leave=false // 有在选中状态的tab就不离开，就是显示
+                    }
+                }
+
+                //当购物车中有东西的时候，tab消失，显示结算，购物车没有东西，tab显示
+                // if (this.isActive(tabPath[2])&&){
+                //     leave=false
+                // }
+
+                return leave;
+            },
+            ...mapGetters([
+                'nowStatus',
+                'getShopCarLength'
+            ]),
+        },
+        methods: {
+
+            /**
+             * 检查是否是当前url，以判断底部状态栏是否激活
+             * @param name
+             * @returns {boolean}
+             */
+            isActive: function (name) {
+                return this.nowUrl.indexOf(name) != -1
+            },
+            open: function (path) {
+                this.$router.openPage(path)
+
+            }
+
+        },
+        mounted() {
+            var params = {
+                type: "get",
+                url: "this.weatherUrl",
+                data: {
+                    city:'北京',
+                    key:'6e9a87b7f80f0adec376b62b3365c7e3'
+                },
+                dataType:'JSONP',
+                success:function(data){
+                    this.weatherData = data
+
+                }
+            }
+           Jquery.ajax(params);
+
+        }
+    }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+    @import "./assets/sass/mypublic"
+    @import "./assets/font/iconfont.css"
+
 </style>

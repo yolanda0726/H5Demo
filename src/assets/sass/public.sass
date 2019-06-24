@@ -1,0 +1,97 @@
+@import './util.sass'
+
+
+
+
+
+
+.section
+  width: 100%
+  position: relative
+
+.section-center
+  padding: 0 0.413rem
+  position: relative
+
+.full
+  width: 100%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* style factory */
+
+
+
+
+img
+  transition: opacity .5s ease
+  opacity: 1
+
+img[lazy="loading"]
+  opacity: 0
+
+
+
+
+
+
+
+
+.touch-item-box
+  margin-bottom: 0.2rem
+
+  .touch-item:last-child
+    border-bottom: none
+
+  .touch-item:active
+    background-color: #eee
+
+  .touch-item
+    line-height: getIphonese(80px)
+    background-color: #fff
+    color: rgba(0, 0, 0, .87)
+    position: relative
+    border-bottom: 1px solid #D9D9D9
+
+    padding: 0 0.4rem
+    @include f12px
+
+    .key
+      color: rgba(0, 0, 0, .54)
+      padding-right: 0.2rem
+
+  .touch-item:after
+    font-family: 'iconfont'
+    content: "\e628"
+    position: absolute
+    right: getIphonese(26px)
+    color: #3E3E3E
